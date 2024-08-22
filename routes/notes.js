@@ -9,7 +9,7 @@ const { readFromFile, readAndAppend } = require(`../helpers/fsUtils`);
 //GET route for retreiving all the notes
 fb.get(`/`, (req, res) => {
   console.info(`${req.method} request recieved for note`);
-  readFromFile(`./db/notes.json`).then((data) => res.json(JSON.parse(data)));
+  readFromFile(`./db/db.json`).then((data) => res.json(JSON.parse(data)));
 });
 
 //POST route for creating a new note
@@ -24,7 +24,7 @@ fb.post(`/`, (req, res) => {
     //generate a unique id for the note
     const newNote = { note_id: uuid(), title, text };
 
-    readAndAppend(newNote, `./db/notes.js`);
+    readAndAppend(newNote, `./db/db.json`);
 
     const response = {
       status: `success`,
@@ -36,3 +36,4 @@ fb.post(`/`, (req, res) => {
     res.json(`Error in posting note`);
   }
 });
+module.exports = fb;
